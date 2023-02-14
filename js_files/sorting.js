@@ -1,15 +1,15 @@
 // swap function util for sorting algorithms takes input of 2 DOM elements with .style.height feature
 function swap(el1, el2) {
     console.log('In swap()');
-    
+
     let temp = el1.style.height;
     el1.style.height = el2.style.height;
     el2.style.height = temp;
-    
+
 }
 
 // Disables sorting buttons used in conjunction with enable, so that we can disable during sorting and enable buttons after it
-function disableSortingBtn(){
+function disableSortingBtn() {
     document.querySelector(".bubbleSort").disabled = true;
     document.querySelector(".insertionSort").disabled = true;
     document.querySelector(".mergeSort").disabled = true;
@@ -18,7 +18,7 @@ function disableSortingBtn(){
 }
 
 // Enables sorting buttons used in conjunction with disable
-function enableSortingBtn(){
+function enableSortingBtn() {
     document.querySelector(".bubbleSort").disabled = false;
     document.querySelector(".insertionSort").disabled = false;
     document.querySelector(".mergeSort").disabled = false;
@@ -27,30 +27,30 @@ function enableSortingBtn(){
 }
 
 // Disables size slider used in conjunction with enable, so that we can disable during sorting and enable buttons after it
-function disableSizeSlider(){
+function disableSizeSlider() {
     document.querySelector("#arr_sz").disabled = true;
 }
 
 // Enables size slider used in conjunction with disable
-function enableSizeSlider(){
+function enableSizeSlider() {
     document.querySelector("#arr_sz").disabled = false;
 }
 
 // Disables newArray buttons used in conjunction with enable, so that we can disable during sorting and enable buttons after it
-function disableNewArrayBtn(){
+function disableNewArrayBtn() {
     document.querySelector(".newArray").disabled = true;
 }
 
 // Enables newArray buttons used in conjunction with disable
-function enableNewArrayBtn(){
+function enableNewArrayBtn() {
     document.querySelector(".newArray").disabled = false;
 }
 
 // Used in async function so that we can so animations of sorting, takes input time in ms (1000 = 1s)
-function waitforme(milisec) { 
-    return new Promise(resolve => { 
-        setTimeout(() => { resolve('') }, milisec); 
-    }) 
+function waitforme(milisec) {
+    return new Promise(resolve => {
+        setTimeout(() => { resolve('') }, milisec);
+    })
 }
 
 /**
@@ -68,13 +68,13 @@ let delay = 260;
 let delayElement = document.querySelector('#speed_input');
 
 // Event listener to update delay time 
-delayElement.addEventListener('input', function(){
-    console.log(delayElement.value, typeof(delayElement.value));
+delayElement.addEventListener('input', function () {
+    console.log(delayElement.value, typeof (delayElement.value));
     delay = 320 - parseInt(delayElement.value);
 });
 
 // Creating array to store randomly generated numbers
-let array = [];
+let arr1 = [];
 
 // Call to display bars right when you visit the site
 createNewArray();
@@ -83,20 +83,26 @@ createNewArray();
 /**
  * Complete this method to create Bars of random heights
  */
-function createNewArray(noOfBars = 60) {
+function createNewArray(noOfBars = 100) {
     // calling helper function to delete old bars from dom
     deleteChild();
 
     // create an array of random numbers 
-    array = [];
+    arr1 = [];
+    for (let i = 0; i < 101; i++) {
+        let a = Math.floor(Math.random() * 100)
+        arr1.push(a);
+    }
     // select the div #bars element
     const bars = document.querySelector("#bars");
 
+
     // create multiple element div using loop and adding class 'bar col'
     for (let i = 0; i < noOfBars; i++) {
-        //create element
-        // update height of bar
-        // add appropriate styling class to the element
+        let ele = document.createElement('div');//create element
+        ele.style.height = `${arr1[i] * 5}px`;// update height of bar
+        bars.appendChild(ele);
+        ele.classList.add("newBars");// add appropriate styling class to the element
         // add element to the DOM by appending to the div #bars
     }
 }
@@ -109,7 +115,7 @@ function deleteChild() {
 
 // Selecting newarray button from DOM and adding eventlistener
 const newArray = document.querySelector(".newArray");
-newArray.addEventListener("click", function(){
+newArray.addEventListener("click", function () {
     console.log("From newArray " + arraySize.value);
     console.log("From newArray " + delay);
     enableSortingBtn();
